@@ -6,5 +6,6 @@ import (
 )
 
 func main() {
+	// main entry point for the lambda function
 	lambda.Start(drain.HandleRequest)
 }
