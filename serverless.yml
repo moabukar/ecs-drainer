@@ -1,0 +1,51 @@
+service: ecs-drain
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: provided.al2
+  region: us-east-1
+  memorySize: 128
+  timeout: 900
+  stage: prod
+  logRetentionInDays: 14
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - autoscaling:CompleteLifecycleAction
+        - ec2:DescribeInstanceAttribute
+        - ec2:DescribeInstances
+        - ecs:ListContainerInstances
+        - ecs:SubmitContainerStateChange
+        - ecs:DescribeContainerInstances
+        - ecs:UpdateContainerInstancesState
+        - ecs:ListTasks
+        - ecs:DescribeTasks
+      Resource: "*"
+
+functions:
+  main:
+    handler: bootstrap
+    package:
+      exclude:
+        - ./**
+      include:
+        - ./bootstrap
+    events:
+      - cloudwatchEvent:
+          event:
+            source:
+              - "aws.autoscaling"
+            detail-type:
+              - "EC2 Instance-terminate Lifecycle Action"
+      - cloudwatchEvent:
+          event:
+            source:
+              - "aws.ec2"
+            detail-type:
+              - "EC2 Spot Instance Interruption Warning"
+
+resources:
+  Description: |
+          Lambda for automatization of ECS Instances operations: https://github.com/getsocial-rnd/ecs-drain-lambda
