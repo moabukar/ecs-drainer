@@ -13,7 +13,7 @@ During ECS instance AMI updates, the Auto Scaling Group (ASG) may replace instan
 
 ## How It Works
 
-The *ecs-drain-lambda* function:
+The *ecs-drainer* function:
 
 1. Receives a CloudWatch event:
     - An **ANY** AutoScaling Lifecycle Terminate event configured via [EC2 Auto Scaling Lifecycle Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html) for the `autoscaling:EC2_INSTANCE_TERMINATING` event.
@@ -55,7 +55,8 @@ sls deploy -v --region
 ```
 
 ## Deploy with Terraform
-For Terraform deployment, refer to the ecs-drain-lambda Terraform Module.
+
+For Terraform deployment, refer to the ecs-drainer Terraform Module.
 
 ## Limitations
 
