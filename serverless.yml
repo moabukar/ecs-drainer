@@ -49,3 +49,4 @@ functions:
 resources:
   Description: |
           Lambda for automatization of ECS Instances operations: https://github.com/moabukar/ecs-drainer
+

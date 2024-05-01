@@ -33,7 +33,7 @@ type (
 )
 
 func HandleRequest(ctx context.Context, event *events.CloudWatchEvent) error {
-	printJSON("CloudWatch Event", event)
+	printJSON("AWS CloudWatch Event", event)
 
 	var instanceToDrain string
 	var finalAction = func() error { return nil }
