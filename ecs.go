@@ -202,7 +202,7 @@ func parseECSClusterValue(str string) (string, error) {
 	return m[0][1], nil
 }
 
-// AWS CloudWatch Logs prints only JSONs nicely
+// AWS CloudWatch Logs prints only JSONs
 func printJSON(text string, data interface{}) {
 	if b, err := json.Marshal(data); err == nil {
 		fmt.Println(text, string(b))
